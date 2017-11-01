@@ -5,10 +5,13 @@ import android.app.Notification;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
+import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import io.cosgrove.nowplaying_history.models.SongHistory;
 import io.cosgrove.nowplaying_history.utils.Constants;
@@ -32,7 +35,6 @@ import io.cosgrove.nowplaying_history.utils.SongHistoryStore;
 
 public class NLService extends NotificationListenerService {
 
-//    private NotificationManager mNotificationManager;
     private String TAG = this.getClass().getSimpleName();
     private SongHistoryStore mSongHistoryStore;
     private static final String NOW_PLAYING_PACKAGE = "com.google.intelligence.sense";
@@ -41,27 +43,59 @@ public class NLService extends NotificationListenerService {
     public void onCreate(){
         super.onCreate();
         Log.i(TAG, "NLService Created");
+        Log.i(TAG, "Number of Songs: " + SongHistoryStore.get(this).getSongHistory().size());
     }
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
-        if ( sbn.getPackageName().toString().equals(NOW_PLAYING_PACKAGE)) {
-            Log.i(TAG, "******** SONG FOUND ********");
-            String notificationTitle = sbn.getNotification().extras.getCharSequence(Notification.EXTRA_TITLE).toString();
-            Log.i(TAG, "Title: " + notificationTitle);
+        if (sbn.getPackageName().equals(NOW_PLAYING_PACKAGE)) {
+            String notificationTitle = (String) sbn.getNotification().extras.getCharSequence(Notification.EXTRA_TITLE);
             mSongHistoryStore = SongHistoryStore.get(this);
-            Log.i(TAG, "SONG HISTORY: " + mSongHistoryStore.getSongHistory());
 
             String date = new SimpleDateFormat(Constants.DATE_FORMAT, Locale.US).format(new Date());
-            Log.i(TAG, "DATE STAMP: " + date);
 
             SongHistory song = new SongHistory(notificationTitle,date);
-            mSongHistoryStore.addSongToHistory(song);
+
+            SongHistory lastSong = null;
+
+            Log.d(TAG, "******** SONG FOUND ********");
+            Log.d(TAG, "Title: " + notificationTitle);
 
 
-        } else {
-            Log.i(TAG, "Some notification");
+            if (!mSongHistoryStore.getSongHistory().isEmpty()) {
+                lastSong = mSongHistoryStore.getSongHistory().get(0);
+            }
+
+            if (lastSong == null ||
+                    !lastSong.getSongTitle().equals(song.getSongTitle()) ||
+                    !lastSong.getSongArtist().equals(song.getSongArtist()) ||
+                    moreThan5MinutesApart(lastSong.getSongHeardDate(),song.getSongHeardDate())) {
+                mSongHistoryStore.addSongToHistory(song);
+                Log.d(TAG, "Inserted song");
+
+            } else {
+                Log.d(TAG, "Song not inserted - Possible duplicate");
+            }
+
+
         }
 
+    }
+
+    private boolean moreThan5MinutesApart(String firstDateString, String secondDateString) {
+        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT, Locale.US);
+        Long minuteDif = null;
+        try {
+            Date firstDate = sdf.parse(firstDateString);
+            Date secondDate = sdf.parse(firstDateString);
+            long difference = secondDate.getTime() - firstDate.getTime();
+            minuteDif = TimeUnit.MILLISECONDS.toMinutes(difference);
+            Log.i(TAG, "Difference: " + minuteDif);
+        } catch (ParseException e) {
+            Log.wtf(TAG, "Unable to parse date from string: " + e.getMessage());
+            Toast.makeText(this.getApplicationContext(), "ERROR! Unable to parse string to date. Contact developer", Toast.LENGTH_LONG).show();
+        }
+
+        return Math.abs(minuteDif) > 5;
     }
 }

@@ -27,8 +27,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 
 import io.cosgrove.nowplaying_history.database.SongHistoryCursorWrapper;
 import io.cosgrove.nowplaying_history.database.SongHistoryDbHelper;
@@ -58,8 +57,8 @@ public class SongHistoryStore {
         }
     }
 
-    public ArrayList<SongHistory> getSongHistory() {
-        ArrayList<SongHistory> songHistories = new ArrayList<>();
+    public List<SongHistory> getSongHistory() {
+        List<SongHistory> songHistories = new ArrayList<>();
 
         SongHistoryCursorWrapper cursor = querySongHistories(null, null);
 
@@ -104,9 +103,8 @@ public class SongHistoryStore {
     public Integer size() {
         String countQuery = "SELECT * FROM " + SongHistoryTable.NAME;
         Cursor cursor = mDatabase.rawQuery(countQuery, null);
-        int count = cursor.getCount();
 
-        return count;
+        return cursor.getCount();
     }
 
 

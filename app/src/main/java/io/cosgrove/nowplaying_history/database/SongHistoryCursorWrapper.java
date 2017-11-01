@@ -22,5 +22,5 @@ public class SongHistoryCursorWrapper extends CursorWrapper {
         String songHeardDate = getString(getColumnIndex(SongHistoryTable.Cols.SONG_HEARD_DATE));
 
         return new SongHistory(songTitle, songArtist, songHeardDate);
-    };
+    }
 }
