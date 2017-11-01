@@ -41,13 +41,14 @@ public class NLService extends NotificationListenerService {
     public void onCreate(){
         super.onCreate();
         Log.i(TAG, "NLService Created");
+        Log.i(TAG, "Number of Songs: " + SongHistoryStore.get(this).getSongHistory().size());
     }
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
-        if ( sbn.getPackageName().toString().equals(NOW_PLAYING_PACKAGE)) {
+        if (sbn.getPackageName().equals(NOW_PLAYING_PACKAGE)) {
             Log.i(TAG, "******** SONG FOUND ********");
-            String notificationTitle = sbn.getNotification().extras.getCharSequence(Notification.EXTRA_TITLE).toString();
+            String notificationTitle = (String) sbn.getNotification().extras.getCharSequence(Notification.EXTRA_TITLE);
             Log.i(TAG, "Title: " + notificationTitle);
             mSongHistoryStore = SongHistoryStore.get(this);
             Log.i(TAG, "SONG HISTORY: " + mSongHistoryStore.getSongHistory());
