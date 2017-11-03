@@ -23,4 +23,5 @@ public class Constants {
     public static final Integer VERSION_CODE = BuildConfig.VERSION_CODE;
     public static final String NOW_PLAYING_PACKAGE_NAME = "com.google.intelligence.sense";
     public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
+    public static final String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
 }

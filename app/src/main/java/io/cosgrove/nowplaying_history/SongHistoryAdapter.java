@@ -1,14 +1,21 @@
 package io.cosgrove.nowplaying_history;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import io.cosgrove.nowplaying_history.models.SongHistory;
+import io.cosgrove.nowplaying_history.utils.Constants;
+import io.cosgrove.nowplaying_history.utils.DateHelper;
 
 /*
   Created by Tyler Cosgrove (vivalldi) on 10/31/17.
@@ -37,11 +44,13 @@ public class SongHistoryAdapter extends RecyclerView.Adapter<SongHistoryAdapter.
         public View mView;
         public TextView mTitleTextView;
         public TextView mArtistTextView;
+        public TextView mTimestampTextView;
         public ViewHolder(View v) {
             super(v);
             mView = v;
-            mTitleTextView = (TextView) v.findViewById(R.id.song_history_title);
-            mArtistTextView = (TextView) v.findViewById(R.id.song_history_artist);
+            mTitleTextView = (TextView) v.findViewById(R.id.song_title);
+            mArtistTextView = (TextView) v.findViewById(R.id.song_artist);
+            mTimestampTextView = (TextView) v.findViewById(R.id.song_timestamp);
 
         }
     }
@@ -55,7 +64,7 @@ public class SongHistoryAdapter extends RecyclerView.Adapter<SongHistoryAdapter.
     public SongHistoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.song_history_item, parent, false);
+                .inflate(R.layout.song_history_item_relative, parent, false);
 
         return new ViewHolder(v);
     }
@@ -69,6 +78,7 @@ public class SongHistoryAdapter extends RecyclerView.Adapter<SongHistoryAdapter.
         SongHistory currentSong = mDataset.get(position);
         holder.mTitleTextView.setText(currentSong.getSongTitle());
         holder.mArtistTextView.setText(currentSong.getSongArtist());
+        holder.mTimestampTextView.setText(DateHelper.changeISOToShortTime12(currentSong.getSongHeardDate()));
 
     }
 

@@ -60,7 +60,7 @@ public class SongHistoryStore {
     public List<SongHistory> getSongHistory() {
         List<SongHistory> songHistories = new ArrayList<>();
 
-        SongHistoryCursorWrapper cursor = querySongHistories(null, null);
+        SongHistoryCursorWrapper cursor = querySongHistories(null, null, SongHistoryTable.Cols.SONG_HEARD_DATE + " DESC");
 
         try {
             cursor.moveToFirst();
@@ -108,7 +108,7 @@ public class SongHistoryStore {
     }
 
 
-    private SongHistoryCursorWrapper querySongHistories(String whereClause, String[] whereArgs) {
+    private SongHistoryCursorWrapper querySongHistories(String whereClause, String[] whereArgs, String orderBy) {
         Cursor cursor = mDatabase.query(
                 SongHistoryTable.NAME,
                 null,
@@ -116,7 +116,7 @@ public class SongHistoryStore {
                 whereArgs,
                 null,
                 null,
-                null
+                orderBy
         );
 
         return new SongHistoryCursorWrapper(cursor);

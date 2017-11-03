@@ -1,20 +1,15 @@
 package io.cosgrove.nowplaying_history.services;
 
-//import android.app.NotificationManager;
 import android.app.Notification;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import io.cosgrove.nowplaying_history.models.SongHistory;
-import io.cosgrove.nowplaying_history.utils.Constants;
+import io.cosgrove.nowplaying_history.utils.DateHelper;
 import io.cosgrove.nowplaying_history.utils.SongHistoryStore;
 
 /*
@@ -35,7 +30,7 @@ import io.cosgrove.nowplaying_history.utils.SongHistoryStore;
 
 public class NLService extends NotificationListenerService {
 
-    private String TAG = this.getClass().getSimpleName();
+    private final String TAG = this.getClass().getSimpleName();
     private SongHistoryStore mSongHistoryStore;
     private static final String NOW_PLAYING_PACKAGE = "com.google.intelligence.sense";
 
@@ -52,7 +47,7 @@ public class NLService extends NotificationListenerService {
             String notificationTitle = (String) sbn.getNotification().extras.getCharSequence(Notification.EXTRA_TITLE);
             mSongHistoryStore = SongHistoryStore.get(this);
 
-            String date = new SimpleDateFormat(Constants.DATE_FORMAT, Locale.US).format(new Date());
+            String date = DateHelper.formatDateToISO(new Date());
 
             SongHistory song = new SongHistory(notificationTitle,date);
 
@@ -83,18 +78,10 @@ public class NLService extends NotificationListenerService {
     }
 
     private boolean moreThan5MinutesApart(String firstDateString, String secondDateString) {
-        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT, Locale.US);
-        Long minuteDif = null;
-        try {
-            Date firstDate = sdf.parse(firstDateString);
-            Date secondDate = sdf.parse(firstDateString);
-            long difference = secondDate.getTime() - firstDate.getTime();
-            minuteDif = TimeUnit.MILLISECONDS.toMinutes(difference);
-            Log.i(TAG, "Difference: " + minuteDif);
-        } catch (ParseException e) {
-            Log.wtf(TAG, "Unable to parse date from string: " + e.getMessage());
-            Toast.makeText(this.getApplicationContext(), "ERROR! Unable to parse string to date. Contact developer", Toast.LENGTH_LONG).show();
-        }
+        Date firstDate = DateHelper.formatISOToDate(firstDateString);
+        Date secondDate = DateHelper.formatISOToDate(secondDateString);
+        long difference = secondDate.getTime() - firstDate.getTime();
+        Long minuteDif = TimeUnit.MILLISECONDS.toMinutes(difference);
 
         return Math.abs(minuteDif) > 5;
     }
