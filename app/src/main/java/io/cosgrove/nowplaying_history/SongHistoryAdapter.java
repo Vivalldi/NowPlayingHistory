@@ -1,20 +1,14 @@
 package io.cosgrove.nowplaying_history;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import io.cosgrove.nowplaying_history.models.SongHistory;
-import io.cosgrove.nowplaying_history.utils.Constants;
 import io.cosgrove.nowplaying_history.utils.DateHelper;
 
 /*
@@ -57,6 +51,10 @@ public class SongHistoryAdapter extends RecyclerView.Adapter<SongHistoryAdapter.
     // Constructor
     public SongHistoryAdapter(List<SongHistory> dataset) {
         mDataset = dataset;
+    }
+
+    public void setDataset(List<SongHistory> updatedDataset) {
+        this.mDataset = updatedDataset;
     }
 
     // Create new views (called by layout manager)
