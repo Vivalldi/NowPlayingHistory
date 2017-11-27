@@ -27,6 +27,7 @@ public final class DateHelper {
     public static final String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
     public static final String SHORT_TIME_12_FORMAT = "h:mm a";
     public static final String SHORT_TIME_24_FORMAT = "HH:mm";
+    public static final String SHORT_MONTH_DATE = "MMM dd";
 
     private static String formatDate(Date date, String dateFormat) {
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.US);
@@ -91,5 +92,24 @@ public final class DateHelper {
 
     public static String changeISOToShortTime12(String timestamp) {
         return changeFormat(timestamp, ISO_8601_FORMAT, SHORT_TIME_12_FORMAT);
+    }
+
+    public static String generateUITimestamp(String iso) {
+        String timestamp = null;
+        SimpleDateFormat isoSDF = new SimpleDateFormat(ISO_8601_FORMAT, Locale.US);
+        try {
+            Date date = isoSDF.parse(iso);
+            Date now = new Date();
+            if (Math.abs(date.getTime() - now.getTime()) > 24 * 60 * 60 * 1000L) {
+                Log.d("DateHelper", "DATE DIFFERENCE IS MORE THAN 24 HOURS");
+                timestamp = changeFormat(iso, ISO_8601_FORMAT, SHORT_MONTH_DATE);
+            } else {
+                timestamp = changeISOToShortTime12(iso);
+            }
+
+        } catch (ParseException e) {
+            Log.wtf("DateHelper", "Unable to parse date: " + e.getMessage());
+        }
+        return timestamp;
     }
 }

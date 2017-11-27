@@ -76,7 +76,7 @@ public class SongHistoryAdapter extends RecyclerView.Adapter<SongHistoryAdapter.
         SongHistory currentSong = mDataset.get(position);
         holder.mTitleTextView.setText(currentSong.getSongTitle());
         holder.mArtistTextView.setText(currentSong.getSongArtist());
-        holder.mTimestampTextView.setText(DateHelper.changeISOToShortTime12(currentSong.getSongHeardDate()));
+        holder.mTimestampTextView.setText(DateHelper.generateUITimestamp(currentSong.getSongHeardDate()));
 
     }
 

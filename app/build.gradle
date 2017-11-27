@@ -18,6 +18,12 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName", "NowPlayingHistory-v$versionName($versionCode)")
     }
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
+    }
 }
 
 dependencies {
