@@ -70,7 +70,7 @@ public class SongHistoryDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d("DB_UPGRADE", "Updating " + SongHistoryTable.NAME + " tabel to version " +
+        Log.d("DB_UPGRADE", "Updating " + SongHistoryTable.NAME + " table to version " +
                 newVersion +" from version " + oldVersion);
 
         Cursor cursor = db.query(SongHistoryTable.NAME, null, null, null, null, null, null);

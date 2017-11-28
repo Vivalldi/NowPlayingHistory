@@ -101,7 +101,6 @@ public final class DateHelper {
             Date date = isoSDF.parse(iso);
             Date now = new Date();
             if (Math.abs(date.getTime() - now.getTime()) > 24 * 60 * 60 * 1000L) {
-                Log.d("DateHelper", "DATE DIFFERENCE IS MORE THAN 24 HOURS");
                 timestamp = changeFormat(iso, ISO_8601_FORMAT, SHORT_MONTH_DATE);
             } else {
                 timestamp = changeISOToShortTime12(iso);

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +61,6 @@ public class SongHistoryAdapter extends RecyclerView.Adapter<SongHistoryAdapter.
         }
         @Override
         public void onClick(View view) {
-            Log.d("SongHistoryAdapter", "onClick " + mTitleTextView.getText());
             String artist = (String) mArtistTextView.getText();
             String title = (String) mTitleTextView.getText();
             Intent intent = new Intent(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH);
