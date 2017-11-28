@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 ext.versionMajor = 1
-ext.versionMinor = 1
+ext.versionMinor = 2
 ext.versionPatch = 0
 ext.versionClassifier = null
 ext.isSnapshot = false
@@ -17,6 +17,12 @@ android {
         versionName generateVersionName() // 1.2.3-SNAPSHOT
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName", "NowPlayingHistory-v$versionName($versionCode)")
+    }
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
     }
 }
 

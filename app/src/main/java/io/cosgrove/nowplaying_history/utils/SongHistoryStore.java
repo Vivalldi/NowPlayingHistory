@@ -60,17 +60,13 @@ public class SongHistoryStore {
     public List<SongHistory> getSongHistory() {
         List<SongHistory> songHistories = new ArrayList<>();
 
-        SongHistoryCursorWrapper cursor = querySongHistories(null, null, SongHistoryTable.Cols.SONG_HEARD_DATE + " DESC");
-
-        try {
+        try (SongHistoryCursorWrapper cursor = querySongHistories(null, null, SongHistoryTable.Cols.SONG_HEARD_DATE + " DESC")) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 SongHistory songHistory = cursor.getSongHistory();
                 songHistories.add(songHistory);
                 cursor.moveToNext();
             }
-        } finally {
-            cursor.close();
         }
 
         Collections.sort(songHistories, new Comparator<SongHistory>() {
@@ -104,7 +100,10 @@ public class SongHistoryStore {
         String countQuery = "SELECT * FROM " + SongHistoryTable.NAME;
         Cursor cursor = mDatabase.rawQuery(countQuery, null);
 
-        return cursor.getCount();
+        Integer count = cursor.getCount();
+        cursor.close();
+
+        return count;
     }
 
 
