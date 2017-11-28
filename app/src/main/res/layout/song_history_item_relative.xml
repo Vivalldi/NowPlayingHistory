@@ -16,7 +16,8 @@
         android:id="@+id/song_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
+        android:clickable="false"
+        android:duplicateParentState="true"
         android:orientation="vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
@@ -25,6 +26,7 @@
             android:id="@+id/song_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:duplicateParentState="true"
             android:lines="1"
             android:textColor="@color/title"
             android:textSize="16sp"
@@ -34,6 +36,7 @@
             android:id="@+id/song_artist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:duplicateParentState="true"
             android:lines="1"
             android:textColor="@color/artist"
             android:textSize="14sp"
@@ -48,8 +51,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:duplicateParentState="true"
         android:textColor="@color/timestamp"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:textStyle="bold"
         tools:text="10:30 AM" />
 

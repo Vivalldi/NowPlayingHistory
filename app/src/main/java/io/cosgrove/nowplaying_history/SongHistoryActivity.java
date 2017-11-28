@@ -43,11 +43,8 @@ public class SongHistoryActivity extends AppCompatActivity implements SwipeRefre
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // get dataset
-        List<SongHistory> songHistoryList = SongHistoryStore.get(this).getSongHistory();
-
         // specify an adapter
-        mAdapter = new SongHistoryAdapter(songHistoryList);
+        mAdapter = new SongHistoryAdapter(SongHistoryStore.get(this));
         mRecyclerView.setAdapter(mAdapter);
 
 
