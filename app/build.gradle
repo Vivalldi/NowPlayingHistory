@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 ext.versionMajor = 1
-ext.versionMinor = 2
+ext.versionMinor = 3
 ext.versionPatch = 0
 ext.versionClassifier = null
 ext.isSnapshot = false
@@ -24,6 +24,9 @@ android {
             debuggable true
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -35,6 +38,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.android.support:recyclerview-v7:26.1.+'
+    compile 'com.heinrichreimersoftware:material-intro:1.6.2'
 }
 
 private Integer generateVersionCode() {
@@ -52,5 +56,5 @@ private String generateVersionName() {
     if (ext.versionClassifier != null) {
         versionName += "-" + ext.versionClassifier
     }
-    return versionName;
+    return versionName
 }
