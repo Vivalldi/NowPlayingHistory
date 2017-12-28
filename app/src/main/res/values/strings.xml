@@ -1,4 +1,28 @@
 <resources>
     <string name="app_name">Now Playing - History</string>
     <string name="title_activity_now_playing_history">Now Playing History</string>
+    <string name="next">Next</string>
+    <string name="grant_permissions">GRANT PERMISSION</string>
+
+    <!-- First Launch -->
+    <string name="done_first_launch_key">FirstLaunch</string>
+    <string name="version_key">AppVersion</string>
+    <string name="setup_incomplete">Setup is incomplete! Please review the interactive setup once, even if you successfully configured a previous version of the app. </string>
+    <string name="setup_incomplete_title">Incomplete Setup</string>
+
+    <!-- Intro -->
+    <string name="intro_welcome_title">Hi!</string>
+    <string name="intro_welcome_message">
+        I\'m your new DJ! Well, sort\'ve. As you listen to songs, say in a coffee shop for example,
+        your Pixel 2 will auto recognize them and I\'ll keep track of them!
+    </string>
+    <string name="intro_get_started">Get Started</string>
+    <string name="intro_grant_permission_title">To get started, I need permission for one little thing</string>
+    <string name="intro_grant_permission_message">I need to access to notifications. Press `Grant Permission` and on the following screen toggle the slide for `Now Playing - History`</string>
+    <string name="intro_grant_permission_success">Permissions are set!</string>
+    <string name="intro_setup_issues_title">Setup issues?</string>
+    <string name="intro_setup_issues_message">Looks like you already finished setup once.
+                                              \n\nIf you are still having issues with notifications, try rebooting the phone and setup again.
+                                              If that does not work, try reinstalling the app.</string>
+    <string name="intro_setup_issues_ok">Got it!</string>
 </resources>

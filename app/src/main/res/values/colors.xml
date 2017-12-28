@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#db4437</color>
-    <color name="colorPrimaryDark">#b93221</color>
+    <!--<color name="colorPrimary">#db4437</color>-->
+    <!--<color name="colorPrimaryDark">#b93221</color>-->
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorSecondary">#673ab7</color>
+    <color name="colorSecondaryDark">#512da8</color>
+    <color name="colorWarning">#E91E63</color>
+    <color name="colorWarningDark">#C2185B</color>
+    <!--<color name="colorAccent">#FF4081</color>-->
     <color name="colorAccent">#FFFFFF</color>
     <color name="title">#000000</color>
     <color name="artist">#757575</color>
